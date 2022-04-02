@@ -1,0 +1,10 @@
+{
+    "email": "usertest@mail.com", 
+    "password": "passworduser", 
+    "address1": "2 Cubic-square street", 
+    "address2": "Appartment 123, floor 33",
+    "city": "New York", 
+    "zip": "0001",
+    "anual": "100", 
+    "description": "User description"
+    }
