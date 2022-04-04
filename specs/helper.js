@@ -1,7 +1,6 @@
 describe('Check status', function () {
     let login;
     let waitForText;
-
     
     before('prepering data', function() {
         login = async function login() {
@@ -13,19 +12,20 @@ describe('Check status', function () {
             await $('#spinner').waitForDisplayed({reverse: true, timeout: 5000});}
 
         waitForText = async function waitForText(selector, text, timeout) {
-            await $('#status').scrollIntoView();
-            await $('#status').waitForDisplayed({reverse:false, timeout: 3000});
-            await $('#status').waitForClickable({timeout: 5000, reverse:false});
-            await $('#status').click();
             await $(selector).waitUntil(async function () {
-                return (await this.getText()) === text}, {timeout: timeout})
+                return (await this.isDisplayed() && await this.getText()) === text}, {timeout: timeout})
         }
+        login();
     });
 
     context('Check status with helper', async function () {
         it('should appear status', async function() {
-            await login();
-            await waitForText('#status','Active', 4000);
+            const elem = '#status';
+            await $(elem).scrollIntoView();
+            await $(elem).waitForDisplayed({reverse:false, timeout: 3000});
+            await $(elem).waitForClickable({timeout: 5000, reverse:false});
+            await $(elem).click();
+            await waitForText(elem,'Active', 4000);
         });
     });
 });
