@@ -1,21 +1,15 @@
-describe('Check status', function () {
-    let login;
+const {login} = require('./loginin.js');
+
+describe('Check status', async function () {
     let waitForText;
     
-    before('prepering data', function() {
-        login = async function login() {
-            await browser.url('https://viktor-silakov.github.io/course-sut/index.html?quick');
-            await $('#login').setValue('walker@jw.com');
-            await $('#password').setValue('password');
-            await $('button').click();
-            await $('#spinner').waitForDisplayed({reverse: false, timeout: 5000});
-            await $('#spinner').waitForDisplayed({reverse: true, timeout: 5000});}
-
+    before('prepering data', async function() {
         waitForText = async function waitForText(selector, text, timeout) {
             await $(selector).waitUntil(async function () {
                 return (await this.isDisplayed() && await this.getText()) === text}, {timeout: timeout})
         }
-        login();
+        
+        await login('https://viktor-silakov.github.io/course-sut/index.html?quick');
     });
 
     context('Check status with helper', async function () {

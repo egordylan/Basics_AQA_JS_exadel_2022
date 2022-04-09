@@ -73,11 +73,13 @@ describe('Message Sending', function () {
     context('Message Sending with invalid token', function () {
         // Message Sending with invalid token to Earth
         it('should send message to Client from Earth with "Security Error"', function () {
+            startEarth();
             const response = sendMessage('Hello', 'Earth', 'X0000');
             assertResponse(response, 'Security Error');
         });
         // Message Sending with invalid token to Mars
         it('should send message to Client from Mars with "Security Error"', function () {
+            startMars();
             const response = sendMessage('Hello', 'Mars', 'X0000');
             assertResponse(response, 'Security Error');
         });

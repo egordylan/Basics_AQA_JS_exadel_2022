@@ -1,5 +1,7 @@
-describe('Create new Manager', function () {
-    let login;
+const {login} = require('./loginin.js');
+
+describe('Create new Manager', async function () {
+
     let createManager;
     const states = {'CA': 'Canada', 'IN': 'India', 'US': 'United States', 'Ge': 'Georgia',};
     const managers = [{
@@ -23,16 +25,8 @@ describe('Create new Manager', function () {
         city: 'Delhi',
         }];
 
-    before('prepering data', function() {
-        login = async function login() {
-            await browser.url('https://viktor-silakov.github.io/course-sut/index.html?quick');
-            await $('#login').setValue('walker@jw.com');
-            await $('#password').setValue('password');
-            await $('button').click();
-            await $('#spinner').waitForDisplayed({reverse: false, timeout: 5000});
-            await $('#spinner').waitForDisplayed({reverse: true, timeout: 5000});
-            await expect(url).toMatch('https://viktor-silakov.github.io/course-sut/index.html');
-        }
+    before('prepering data', async function() {
+        await login('https://viktor-silakov.github.io/course-sut/index.html?quick');
 
         createManager = async function createManager(email, password, address1, address2, state,
                                                      zip, description, city) {
@@ -73,7 +67,6 @@ describe('Create new Manager', function () {
             const url = await browser.getUrl();
             await expect(url).toMatch('https://viktor-silakov.github.io/course-sut/Users.html');
         }
-        login();
     });
 
     context('Fill and submit the form', async function () {
@@ -174,4 +167,4 @@ describe('Create new Manager', function () {
 
 });
 
-// npx wdio wdio.conf.js --spec fill-submit-form_v2.js
+// npx wdio wdio.conf.js --spec fill-submit-form.js

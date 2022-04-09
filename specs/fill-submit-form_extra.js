@@ -1,17 +1,11 @@
-describe('Create new Manager', function () {
+const {login} = require('./loginin.js');
+
+describe('Create new Manager', async function () {
     const jsonData = require('./users.json');
-    let login;
     let createUser;
     
 
-    before('prepering data', function() {
-        login = async function login() {
-            await browser.url('https://viktor-silakov.github.io/course-sut/index.html?quick');
-            await $('#login').setValue('walker@jw.com');
-            await $('#password').setValue('password');
-            await $('button').click();
-            await $('#spinner').waitForDisplayed({reverse: false, timeout: 5000});
-            await $('#spinner').waitForDisplayed({reverse: true, timeout: 5000});}
+    before('prepering data', async function() {
         
         createUser = async function createUser(jsonData) {
             for (const field in jsonData) {
@@ -22,7 +16,8 @@ describe('Create new Manager', function () {
             const url = await browser.getUrl();
             await expect(url).toMatch('https://viktor-silakov.github.io/course-sut/Users.html');
         }
-        login();
+        
+        await login('https://viktor-silakov.github.io/course-sut/index.html?quick');
     });
 
     context('Fill and submit the form', async function () {
